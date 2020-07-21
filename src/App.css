@@ -1,38 +1,139 @@
-.App {
-  text-align: center;
+.welcome-message{
+  color: #0F0;
+  border-right: 5px solid white;
+  padding: 0 5px;
+  animation: blink .2s step-end infinite alternate;
+} 
+body{
+  background-color: black;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@keyframes blink{
+  50%{
+    border-color: transparent;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
+.dashboard{
+  position: absolute;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}  
+.dashboard{
+  display:flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 10px;
+}
+.dashboard__header{
+  flex: 2;
+  border: 2px solid #0f0; 
+  display:flex;
+  flex-direction: row;
+}
+.dashboard__body{
+  flex: 20;
+  border: 2px solid #0f0;
+  border-top: 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  height: 80%;
+}
+.dashboard__result-list{
+  flex: 2; 
+  border-right: 2px solid #0f0;
+  overflow-y: scroll;
+  height: 100%;
+  overflow-x: hidden;
+}
+.dashboard__detail{
+  flex: 10;  
+  padding: 10px;
+}
+.dashboard__button{
+  height:100%;
+  width:100%;
+  background-color: transparent;
+  outline: none;
+  border: 2px solid #0f0;
+  color: #0f0;
+}
+.dashboard__header-section-1{
+  flex: 2;
+  padding: 7px;
+}
+.dashboard__header-section-2{
+  flex: 25;
+  padding: 10px;
+} 
+.dashboard__button:hover{
   color: white;
+  cursor: pointer;
 }
-
-.App-link {
-  color: #61dafb;
+.dashboard__input{
+  background-color: transparent;
+  outline: none;
+  border:0;
+  border-bottom: 2px solid #0f0;
+  width: 100%;
+  height: 100%;
+  caret-color: red;
+  color: white;
+  font-size: 1.5rem;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.curtain{ 
+  position:absolute;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  background-color: black;
+  animation-name: curtain-pull-down;
+  animation-fill-mode: both;
+  animation-duration: 4s; 
+  animation-timing-function: ease;
+}
+@keyframes curtain-pull-down{
+  from{
+    height: 100%;
   }
-  to {
-    transform: rotate(360deg);
+  to{
+    height: 0%;
   }
+}
+::-webkit-scrollbar{
+  display:none; 
+} 
+.dashboard__result{
+    border-bottom: 0.5px solid #0f0;
+    height: 50px;
+    padding-top:25px;
+    color: white; 
+    text-align: center;  
+    vertical-align: middle; 
+}   
+.dashboard__result:hover{
+  cursor: pointer;
+}
+.dashboard__result--selected{
+  border-bottom: 0.5px solid red;
+  color: red;
+}
+.dashboard__toolbar{
+  flex: 1;
+  border-right: 1px solid #0f0;
+}
+.dashboard__toolbar-section{
+  height: 100px;
+  margin: 10px;
+}
+.dashboard__textarea{
+  background-color: transparent;
+  width: 100%;
+  height: 99%;
+  outline: none;
+  caret-color:red;
+  color: white;
+  font-size: 18px;
 }
