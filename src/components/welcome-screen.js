@@ -13,8 +13,9 @@ displayMessage = async(msg) => {
           console.log(msg, msg.length);
           accumulator += msg[i];
           elem.innerText = accumulator;
-          await sleep(150);
+          await sleep(70);
         }
+        await sleep(500);
         if (this.props.done) this.props.done();
       }
   componentDidMount() {
@@ -22,7 +23,7 @@ displayMessage = async(msg) => {
     this.displayMessage(welcomeMsg);
   }
   render() {
-    return <span class="welcome-message"> </span>;
+    return <span className="welcome-message"> </span>;
   }
 }
 export default WelcomeScreen;

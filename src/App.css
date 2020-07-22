@@ -3,6 +3,7 @@
   border-right: 5px solid white;
   padding: 0 5px;
   animation: blink .2s step-end infinite alternate;
+  font-size: 25px;
 } 
 body{
   background-color: black;
@@ -136,4 +137,24 @@ body{
   caret-color:red;
   color: white;
   font-size: 18px;
+}
+
+.snackbar{
+  position: fixed; 
+  left: 50%;
+  top: 3%;
+  background-color: #0f0;
+  z-index: 99999;
+  color: black;
+  text-align: center; 
+  padding-top: 0px;
+  font-weight: 800;
+  font-size: 30px;
+  padding: 2px 50px;
+}
+.snackbar--show{
+  display: block;
+}
+.snackbar--hide{
+  display: none;
 }

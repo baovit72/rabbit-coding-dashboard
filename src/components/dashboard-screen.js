@@ -1,19 +1,27 @@
 import React, { Component } from "react";
-const data = require("../data.js").data;
-let responses = [];
-for (let item in data.responses) {
-  data.responses[item].id = item;
-  responses.push(data.responses[item]);
-}
-data.responses = responses;
-console.log(data.responses);
+import showSnackbar from "../utils";
 
 class DashboardScreen extends Component {
-  state = {
-    data: data,
-    selectedItem: null,
-    searchValue: "",
-  };
+  constructor(props) {
+    super(props);
+    let data = JSON.parse(JSON.stringify(this.props.data));
+    console.log("pre", data);
+    let responses = [];
+    console.log("Run constructor");
+    for (let item in data.responses) {
+      console.log(item);
+      data.responses[item].id = item;
+      responses.push(data.responses[item]);
+    }
+    data.responses = responses;
+
+    this.state = {
+      data: data,
+      selectedItem: null,
+      searchValue: "",
+    };
+  }
+
   onSearchChange = (event) => {
     console.log(event.target.value);
     this.setState({ searchValue: event.target.value });
@@ -26,6 +34,34 @@ class DashboardScreen extends Component {
     );
     this.setState({ selectedItem: id });
     console.log(id);
+  };
+  submit = () => {
+    console.log(this.detailElem.value);
+    try {
+      const item = JSON.parse(this.detailElem.value);
+      console.log(item);
+      this.state.data.responses[
+        this.state.data.responses.findIndex((i) => i.id === item.id)
+      ] = item;
+      const data = new URLSearchParams();
+      data.append("data", JSON.stringify(item));
+      fetch("/data", {
+        method: "POST",
+        body: data,
+      })
+        .then(function (data) {
+          console.log("Request success: ", data);
+          showSnackbar("SUCCESS");
+        })
+        .catch(function (error) {
+          console.log("Request failure: ", error);
+          showSnackbar("FAILED");
+        });
+    } catch (e) {
+      console.log("input error");
+      showSnackbar("CHECK YOUR INPUT");
+      return;
+    }
   };
   render() {
     let results = this.state.data.responses
@@ -46,6 +82,7 @@ class DashboardScreen extends Component {
 
     return (
       <div>
+        <div id="snackbar" className="snackbar snackbar--hide">SUCCESS</div>
         <div className="curtain"></div>
         <div className="dashboard">
           <div className="dashboard__header">
@@ -63,10 +100,17 @@ class DashboardScreen extends Component {
             <div className="dashboard__result-list">{results}</div>
             <div className="dashboard__toolbar">
               <div className="dashboard__toolbar-section">
-                <button className="dashboard__button">Lưu</button>
+                <button onClick={this.submit} className="dashboard__button">
+                  Lưu
+                </button>
               </div>
               <div className="dashboard__toolbar-section">
-                <button onClick={()=>this.onResultChange(this.state.selectedItem)} className="dashboard__button">Tải lại</button>
+                <button
+                  onClick={() => this.onResultChange(this.state.selectedItem)}
+                  className="dashboard__button"
+                >
+                  Tải lại
+                </button>
               </div>
             </div>
             <div className="dashboard__detail">
